@@ -8,7 +8,7 @@ const FirstLetterSelector = ({
   setFirstLetter: (letter: string) => void;
 }) => {
   return (
-    <div className="flex flex-col justify-center gap-6">
+    <div className="flex flex-col justify-center gap-6 px-4 md:px-0">
       <header className="text-3xl">
         <h1>Quelle est la première lettre du mot ?</h1>
       </header>
