@@ -15,7 +15,7 @@ const Key = ({
   return (
     <button
       className={classMerge(
-        'border border-solid border-white rounded-lg flex-grow flex justify-center items-center',
+        'border border-solid border-white rounded-lg flex-grow flex justify-center items-center font-mono',
         doubleGrow ? 'flex-grow-1.5' : '',
         disabled ? 'text-sutom-lightGray cursor-default' : 'cursor-pointer'
       )}
