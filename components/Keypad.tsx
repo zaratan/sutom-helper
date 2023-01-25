@@ -7,15 +7,19 @@ import Key from './Key';
 const KeyLine = ({
   line,
   disableSpecial,
+  disableReturn,
   onClickNormal,
   onClickBack,
   onClickReturn,
+  disabledLetters,
 }: {
   line: Array<LetterType>;
   disableSpecial?: boolean;
+  disableReturn?: boolean;
   onClickNormal?: (letter: string) => void;
   onClickBack?: (letter: string) => void;
   onClickReturn?: (letter: string) => void;
+  disabledLetters?: Array<string>;
 }) => {
   return (
     <div className="flex w-full flex-grow gap-1">
@@ -24,7 +28,11 @@ const KeyLine = ({
           key={letter.letter}
           letter={letter.letter}
           doubleGrow={letter.doubleGrow}
-          disabled={disableSpecial && letter.special}
+          disabled={
+            (disableSpecial && letter.special) ||
+            (disableReturn && letter.return) ||
+            disabledLetters?.includes(letter.letter)
+          }
           onClick={
             letter.special
               ? letter.back
@@ -40,12 +48,20 @@ const KeyLine = ({
 
 const Keypad = ({
   disableSpecial,
+  disableReturn,
   onClickNormal,
+  onClickReturn,
+  onClickBack,
   layout,
+  disabledLetters,
 }: {
   disableSpecial?: boolean;
+  disableReturn?: boolean;
   onClickNormal?: (letter: string) => void;
+  onClickReturn?: () => void;
+  onClickBack?: () => void;
   layout: KeypadLayoutType;
+  disabledLetters?: Array<string>;
 }) => {
   return (
     <div
@@ -59,7 +75,11 @@ const Keypad = ({
           key={`line-${i}`}
           line={line}
           disableSpecial={disableSpecial}
+          disableReturn={disableReturn}
           onClickNormal={onClickNormal}
+          onClickReturn={onClickReturn}
+          onClickBack={onClickBack}
+          disabledLetters={disabledLetters}
         />
       ))}
     </div>

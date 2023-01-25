@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => (
-  <footer className="text-center text-white">
+  <footer className="text-center text-white mt-6">
     <span className="py-6 pl-6 sm:pl-0 sm:pb-3 sm:pt-2 flex justify-center items-start sm:items-center flex-col sm:flex-row">
       <span className="sm:pr-1">
         <span>

@@ -43,7 +43,7 @@ const Main = ({
             letter,
             count:
               (unknownPosLetters.find((fl) => fl.letter === letter)?.count ||
-                1) + 1,
+                0) + 1,
           },
         ]);
       };
@@ -79,8 +79,14 @@ const Main = ({
           setMode(position);
         }}
       />
-      <UnkwonPosLetters letters={unknownPosLetters} />
-      <ForbiddenLetters letters={forbiddenLetters} />
+      <UnkwonPosLetters
+        letters={unknownPosLetters}
+        setLetters={setUnknownPosLetters}
+      />
+      <ForbiddenLetters
+        letters={forbiddenLetters}
+        setLetters={setForbiddenLetters}
+      />
       <ul className="flex gap-4 h-10">
         <li
           className={classMerge(
@@ -105,7 +111,25 @@ const Main = ({
           </button>
         </li>
       </ul>
-      <Keypad layout={qwerty} disableSpecial onClickNormal={onClickLetter} />
+      <Keypad
+        layout={qwerty}
+        disableSpecial={
+          mode === 'forbidden' || mode === 'unknown' || word[mode] === null
+        }
+        disableReturn
+        onClickNormal={onClickLetter}
+        onClickBack={() => {
+          setWord(
+            word.map((w, i) => {
+              if (i === mode) {
+                return null;
+              }
+              return w;
+            })
+          );
+        }}
+        disabledLetters={forbiddenLetters.map((fl) => fl.letter)}
+      />
     </div>
   );
 };

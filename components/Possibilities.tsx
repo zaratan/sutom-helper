@@ -12,14 +12,26 @@ const Possibilities = ({
   forbiddenLetters: Array<{ letter: string }>;
   unknownPosLetters: Array<{ letter: string; count: number }>;
 }) => {
-  console.log(words[0]);
-  const regexp = RegExp(
-    `^${word.map((letter) => (letter || '.').toLocaleLowerCase()).join('')}$`,
+  const forbiddenRegex = `[^${forbiddenLetters
+    .map((fl) => fl.letter)
+    .join('')}]`;
+
+  const regexpWord = RegExp(
+    `^${word
+      .map((letter) => (letter || forbiddenRegex).toLocaleLowerCase())
+      .join('')}$`,
     'i'
   );
-  console.log(regexp);
-  const possibilities = words.filter((w) => regexp.test(w));
-  console.log(possibilities);
+
+  const possibilities = words.filter(
+    (w) =>
+      regexpWord.test(w) &&
+      unknownPosLetters.every(
+        (upl) =>
+          w.split('').filter((l) => l === upl.letter.toLocaleLowerCase())
+            .length >= upl.count
+      )
+  );
   return (
     <ul>
       {possibilities.map((possibility, i) => (
