@@ -50,7 +50,7 @@ const Keypad = ({
   return (
     <div
       className={classMerge(
-        'flex flex-col justify-center gap-1 h-40',
+        'flex flex-col justify-center gap-1 max-w-lg w-full',
         layout.numberOfLines === 3 ? 'h-40' : 'h-14'
       )}
     >
