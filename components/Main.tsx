@@ -63,7 +63,7 @@ const Main = ({
   }
 
   return (
-    <div className="w-full flex gap-6 justify-center flex-col items-center">
+    <div className="w-full flex gap-6 justify-center flex-col items-center px-4 md:px-0">
       <Possibilities
         letterCount={letterCount}
         word={word}
