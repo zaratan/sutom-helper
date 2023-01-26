@@ -1,8 +1,8 @@
 'use client';
 
-import FirstLetterSelector from '@/components/FirstLetterSelector';
-import Main from '@/components/Main';
-import NumberOfLettersSelector from '@/components/NumberOfLettersSelector';
+import FirstLetterSelector from '@/app/components/FirstLetterSelector';
+import Main from '@/app/components/Main';
+import NumberOfLettersSelector from '@/app/components/NumberOfLettersSelector';
 import { useState } from 'react';
 
 export default function Home() {

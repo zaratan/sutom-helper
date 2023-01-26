@@ -1,8 +1,9 @@
 import './globals.css';
 import { Inter, Roboto } from '@next/font/google';
 import classMerge from '@/helpers/classMerge';
-import Title from '@/components/Title';
-import Footer from '@/components/Footer';
+import Title from '@/app/components/Title';
+import Footer from '@/app/components/Footer';
+import { AnalyticsWrapper } from '@/app/components/analytics';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const robotoMedium = Roboto({
@@ -35,6 +36,7 @@ export default function RootLayout({
           {children}
         </div>
         <Footer />
+        <AnalyticsWrapper />
       </body>
     </html>
   );
