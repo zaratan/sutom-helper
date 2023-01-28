@@ -1,5 +1,5 @@
 import React from 'react';
-import words from '@/data/words.json';
+import words from '@/data/wordsFromSutomRepo.json';
 
 const Possibilities = ({
   word,
@@ -27,13 +27,11 @@ const Possibilities = ({
     (w) =>
       regexpWord.test(w) &&
       unknownPosLetters.every(
-        (upl) =>
-          w.split('').filter((l) => l === upl.letter.toLocaleLowerCase())
-            .length >= upl.count
+        (upl) => w.split('').filter((l) => l === upl.letter).length >= upl.count
       )
   );
   return (
-    <ul>
+    <ul className="max-h-96 my-4 flex flex-col flex-wrap overflow-y-scroll w-full gap-x-4">
       {possibilities.map((possibility, i) => (
         <li key={`${possibility}-${i}`}>{possibility}</li>
       ))}

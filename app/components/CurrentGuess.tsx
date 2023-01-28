@@ -15,7 +15,7 @@ const LetterGuess = ({
   return (
     <li
       className={classMerge(
-        'border border-solid w-12 h-12 flex justify-center items-center text-2xl',
+        'border border-solid w-10 h-10 sm:w-12 sm:h-12 flex justify-center items-center text-xl sm:text-2xl ',
         selectedLetter ? 'border-sutom-yellow border-4' : 'border-white',
         letter !== null ? 'bg-sutom-red' : 'bg-sutom-blue'
       )}
@@ -43,7 +43,7 @@ const CurrentGuess = ({
   letterClick?: (position: number) => void;
 }) => {
   return (
-    <div>
+    <div className="">
       <header className="flex flex-col items-center">
         <h2>Mot actuel</h2>
       </header>
