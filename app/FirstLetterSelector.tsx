@@ -1,18 +1,14 @@
 import qwerty from '@/keypads/qwerty';
 import React from 'react';
-import Keypad from './Keypad';
+import Keypad from '../components/Keypad';
 
-const FirstLetterSelector = ({
-  setFirstLetter,
-}: {
-  setFirstLetter: (letter: string) => void;
-}) => {
+const FirstLetterSelector = () => {
   return (
     <div className="flex flex-col justify-center gap-6 px-4 md:px-0">
       <header className="text-3xl">
         <h1>Quelle est la première lettre du mot ?</h1>
       </header>
-      <Keypad disableSpecial onClickNormal={setFirstLetter} layout={qwerty} />
+      <Keypad disableSpecial linkFormatNormal="/{letter}" layout={qwerty} />
     </div>
   );
 };

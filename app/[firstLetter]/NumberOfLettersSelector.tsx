@@ -1,12 +1,8 @@
 import numbers from '@/keypads/numbers';
 import React from 'react';
-import Keypad from './Keypad';
+import Keypad from '../../components/Keypad';
 
-const NumberOfLettersSelector = ({
-  setLetterCount,
-}: {
-  setLetterCount: (number: number) => void;
-}) => {
+const NumberOfLettersSelector = ({ firstLetter }: { firstLetter: string }) => {
   return (
     <div className="flex flex-col justify-center gap-6 px-4 md:px-0">
       <header className="text-3xl">
@@ -14,9 +10,7 @@ const NumberOfLettersSelector = ({
       </header>
       <Keypad
         disableSpecial
-        onClickNormal={(letter) => {
-          setLetterCount(Number(letter));
-        }}
+        linkFormatNormal={`/${firstLetter}/{letter}`}
         layout={numbers}
       />
     </div>

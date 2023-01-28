@@ -1,7 +1,33 @@
 import classMerge from '@/helpers/classMerge';
+import Link from 'next/link';
 import React from 'react';
 
-const Key = ({
+export const KeyLink = ({
+  letter,
+  doubleGrow,
+  disabled,
+  link,
+}: {
+  letter: string;
+  doubleGrow?: boolean;
+  disabled?: boolean;
+  link: string;
+}) => {
+  return (
+    <Link
+      className={classMerge(
+        'border border-solid border-white rounded-lg flex-grow flex justify-center items-center font-mono',
+        doubleGrow ? 'flex-grow-1.5' : '',
+        disabled ? 'text-sutom-lightGray cursor-default' : 'cursor-pointer'
+      )}
+      href={link}
+    >
+      {letter}
+    </Link>
+  );
+};
+
+export const KeyClick = ({
   letter,
   doubleGrow,
   disabled,
@@ -28,5 +54,3 @@ const Key = ({
     </button>
   );
 };
-
-export default Key;

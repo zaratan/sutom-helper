@@ -1,9 +1,9 @@
 import './globals.css';
 import { Inter, Roboto } from '@next/font/google';
 import classMerge from '@/helpers/classMerge';
-import Title from '@/app/components/Title';
-import Footer from '@/app/components/Footer';
-import { AnalyticsWrapper } from '@/app/components/analytics';
+import Title from '@/app/Title';
+import Footer from '@/app/Footer';
+import { AnalyticsWrapper } from '@/app/analytics';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const robotoMedium = Roboto({

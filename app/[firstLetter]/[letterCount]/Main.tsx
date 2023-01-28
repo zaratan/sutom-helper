@@ -1,10 +1,12 @@
+'use client';
+
 import qwerty from '@/keypads/qwerty';
 import React, { useState } from 'react';
-import CurrentGuess from './CurrentGuess';
-import Keypad from './Keypad';
-import ForbiddenLetters from './ForbiddenLetters';
-import UnkwonPosLetters from './UnkwonPosLetters';
-import Possibilities from './Possibilities';
+import CurrentGuess from '../../../components/CurrentGuess';
+import Keypad from '../../../components/Keypad';
+import ForbiddenLetters from '../../../components/ForbiddenLetters';
+import UnkwonPosLetters from '../../../components/UnkwonPosLetters';
+import Possibilities from '../../../components/Possibilities';
 import classMerge from '@/helpers/classMerge';
 
 const Main = ({
@@ -63,8 +65,9 @@ const Main = ({
   }
 
   return (
-    <div className="w-full flex gap-6 justify-center flex-col items-center px-4 md:px-0">
+    <div className="w-full flex gap-6 justify-center flex-col items-center px-4 md:px-0 grow">
       <Possibilities
+        firstLetter={firstLetter}
         letterCount={letterCount}
         word={word}
         forbiddenLetters={forbiddenLetters}

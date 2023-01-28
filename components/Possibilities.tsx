@@ -1,17 +1,37 @@
 import React from 'react';
-import words from '@/data/wordsFromSutomRepo.json';
+import useSWR from 'swr';
+
+const fetcher = (entry: RequestInfo, init?: RequestInit) =>
+  fetch(entry, init).then((res) => res.json());
 
 const Possibilities = ({
-  word,
+  firstLetter,
   letterCount,
+  word,
   forbiddenLetters,
   unknownPosLetters,
 }: {
-  word: Array<string | null>;
+  firstLetter: string;
   letterCount: number;
+  word: Array<string | null>;
   forbiddenLetters: Array<{ letter: string }>;
   unknownPosLetters: Array<{ letter: string; count: number }>;
 }) => {
+  const { data } = useSWR<{ words: Array<string> }>(
+    `/api/${firstLetter}/${letterCount}/`,
+    fetcher
+  );
+
+  console.log({ data });
+
+  if (!data) {
+    return (
+      <div className="flex justify-center items-center w-full h-full max-h-96 my-4 flex-grow">
+        Loading...
+      </div>
+    );
+  }
+
   const forbiddenRegex = `[^${forbiddenLetters
     .map((fl) => fl.letter)
     .join('')}]`;
@@ -23,7 +43,7 @@ const Possibilities = ({
     'i'
   );
 
-  const possibilities = words.filter(
+  const possibilities = data.words.filter(
     (w) =>
       regexpWord.test(w) &&
       unknownPosLetters.every(

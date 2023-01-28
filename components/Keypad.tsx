@@ -2,7 +2,7 @@ import classMerge from '@/helpers/classMerge';
 import KeypadLayoutType from '@/keypads/KeypadLayoutType';
 import LetterType from '@/keypads/LetterType';
 import React from 'react';
-import Key from './Key';
+import { KeyClick, KeyLink } from './Key';
 
 const KeyLine = ({
   line,
@@ -12,6 +12,7 @@ const KeyLine = ({
   onClickBack,
   onClickReturn,
   disabledLetters,
+  linkFormatNormal,
 }: {
   line: Array<LetterType>;
   disableSpecial?: boolean;
@@ -20,28 +21,43 @@ const KeyLine = ({
   onClickBack?: (letter: string) => void;
   onClickReturn?: (letter: string) => void;
   disabledLetters?: Array<string>;
+  linkFormatNormal?: string;
 }) => {
   return (
     <div className="flex w-full flex-grow gap-1">
-      {line.map((letter) => (
-        <Key
-          key={letter.letter}
-          letter={letter.letter}
-          doubleGrow={letter.doubleGrow}
-          disabled={
-            (disableSpecial && letter.special) ||
-            (disableReturn && letter.return) ||
-            disabledLetters?.includes(letter.letter)
-          }
-          onClick={
-            letter.special
-              ? letter.back
-                ? onClickBack
-                : onClickReturn
-              : onClickNormal
-          }
-        />
-      ))}
+      {line.map((letter) =>
+        linkFormatNormal ? (
+          <KeyLink
+            key={letter.letter}
+            letter={letter.letter}
+            doubleGrow={letter.doubleGrow}
+            disabled={
+              (disableSpecial && letter.special) ||
+              (disableReturn && letter.return) ||
+              disabledLetters?.includes(letter.letter)
+            }
+            link={linkFormatNormal.replace('{letter}', letter.letter)}
+          />
+        ) : (
+          <KeyClick
+            key={letter.letter}
+            letter={letter.letter}
+            doubleGrow={letter.doubleGrow}
+            disabled={
+              (disableSpecial && letter.special) ||
+              (disableReturn && letter.return) ||
+              disabledLetters?.includes(letter.letter)
+            }
+            onClick={
+              letter.special
+                ? letter.back
+                  ? onClickBack
+                  : onClickReturn
+                : onClickNormal
+            }
+          />
+        )
+      )}
     </div>
   );
 };
@@ -54,6 +70,7 @@ const Keypad = ({
   onClickBack,
   layout,
   disabledLetters,
+  linkFormatNormal,
 }: {
   disableSpecial?: boolean;
   disableReturn?: boolean;
@@ -62,6 +79,7 @@ const Keypad = ({
   onClickBack?: () => void;
   layout: KeypadLayoutType;
   disabledLetters?: Array<string>;
+  linkFormatNormal?: string;
 }) => {
   return (
     <div
@@ -80,6 +98,7 @@ const Keypad = ({
           onClickReturn={onClickReturn}
           onClickBack={onClickBack}
           disabledLetters={disabledLetters}
+          linkFormatNormal={linkFormatNormal}
         />
       ))}
     </div>
