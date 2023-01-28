@@ -1,7 +1,7 @@
 import React from 'react';
 import Main from '@/app/[firstLetter]/[letterCount]/Main';
 
-const Page = ({
+const Page = async ({
   params: { letterCount, firstLetter },
 }: {
   params: {
@@ -9,12 +9,7 @@ const Page = ({
     letterCount: string;
   };
 }) => {
-  if (firstLetter.length > 1) {
-    firstLetter = firstLetter[0];
-  }
-  const letterCountNum = Number(letterCount);
-
-  return <Main firstLetter={firstLetter} letterCount={letterCountNum} />;
+  return <Main firstLetter={firstLetter} letterCount={Number(letterCount)} />;
 };
 
 export default Page;

@@ -4,6 +4,7 @@ import classMerge from '@/helpers/classMerge';
 import Title from '@/app/Title';
 import Footer from '@/app/Footer';
 import { AnalyticsWrapper } from '@/app/analytics';
+import ResetButton from '@/components/ResetButton';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const robotoMedium = Roboto({
@@ -32,7 +33,7 @@ export default function RootLayout({
         )}
       >
         <Title />
-        <div className="grow h-full flex flex-col justify-around max-w-3xl w-full items-center">
+        <div className="grow h-full flex flex-col justify-around max-w-3xl w-full items-center relative">
           {children}
         </div>
         <Footer />
