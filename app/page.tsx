@@ -1,5 +1,9 @@
 import FirstLetterSelector from '@/app/FirstLetterSelector';
 
-export default function Home() {
-  return <FirstLetterSelector />;
+export default async function Home() {
+  return (
+    <>
+      <FirstLetterSelector />
+    </>
+  );
 }
