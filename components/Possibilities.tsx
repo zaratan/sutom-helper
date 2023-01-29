@@ -1,4 +1,4 @@
-import { sortBy } from 'lodash';
+import { WordsData } from '@/pages/api/words';
 import React from 'react';
 import useSWR from 'swr';
 
@@ -9,38 +9,29 @@ const Possibilities = ({
   word,
   forbiddenLetters,
   unknownPosLetters,
-  possibleWords,
 }: {
   word: Array<string | null>;
   forbiddenLetters: Array<{ letter: string }>;
   unknownPosLetters: Array<{ letter: string; count: number }>;
-  possibleWords: Array<{ word: string; score: number }>;
 }) => {
-  const forbiddenRegex = `[^${forbiddenLetters
-    .map((fl) => fl.letter)
-    .join('')}]`;
-
-  const regexpWord = RegExp(
-    `^${word
-      .map((letter) => (letter || forbiddenRegex).toLocaleLowerCase())
-      .join('')}$`,
-    'i'
+  const { data } = useSWR<WordsData>(
+    `/api/words?w=${JSON.stringify(word)}&upl=${JSON.stringify(
+      unknownPosLetters
+    )}&fbl=${JSON.stringify(forbiddenLetters)}`,
+    fetcher
   );
 
-  const possibilities = possibleWords
-    .filter(
-      (w) =>
-        regexpWord.test(w.word) &&
-        unknownPosLetters.every(
-          (upl) =>
-            w.word.split('').filter((l) => l === upl.letter).length >= upl.count
-        )
-    )
-    .map((w) => w.word);
+  if (!data) {
+    return (
+      <div className="h-96 my-4 flex justify-center items-center">
+        Chargement...
+      </div>
+    );
+  }
 
   return (
-    <ul className="max-h-96 my-4 flex flex-col flex-wrap overflow-y-scroll w-full gap-x-4">
-      {possibilities.map((possibility, i) => (
+    <ul className="h-96 my-4 flex items-center flex-col flex-wrap overflow-y-scroll w-full gap-x-4">
+      {data.words.map((possibility, i) => (
         <li key={`${possibility}-${i}`}>{possibility}</li>
       ))}
     </ul>

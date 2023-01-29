@@ -16,27 +16,6 @@ export async function generateStaticParams() {
   );
 }
 
-const getValidWords = async (firstLetter: string, letterCount: number) => {
-  const validWords = sortBy(
-    words
-      .filter(
-        (word) =>
-          word.length === letterCount &&
-          word[0].toLowerCase() === firstLetter.toLowerCase()
-      )
-      .map((word) => ({
-        word,
-        score: (
-          uniq(
-            word.split('').map((l) => l.toLocaleLowerCase())
-          ) as Array<Letter>
-        ).reduce((acc, letter) => acc + frequencyLetterFr[letter], 0),
-      })),
-    'score'
-  ).reverse();
-  return validWords;
-};
-
 const Page = async ({
   params: { letterCount, firstLetter },
 }: {
@@ -45,15 +24,7 @@ const Page = async ({
     letterCount: string;
   };
 }) => {
-  const fetchedWords = await getValidWords(firstLetter, Number(letterCount));
-
-  return (
-    <Main
-      firstLetter={firstLetter}
-      letterCount={Number(letterCount)}
-      possibleWords={fetchedWords}
-    />
-  );
+  return <Main firstLetter={firstLetter} letterCount={Number(letterCount)} />;
 };
 
 export default Page;
