@@ -30,7 +30,7 @@ const Possibilities = ({
   }
 
   return (
-    <ul className="h-96 my-4 flex justify-center items-center flex-col flex-wrap overflow-y-scroll w-full gap-x-4">
+    <ul className="h-96 my-4 flex items-center flex-col flex-wrap overflow-y-scroll w-full gap-x-4">
       {data.words.map((possibility, i) => (
         <li key={`${possibility}-${i}`}>{possibility}</li>
       ))}
