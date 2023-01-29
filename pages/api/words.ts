@@ -52,7 +52,5 @@ export default function handler(
 
   const possibilities = filteredWords.map((w) => w.word).slice(0, 100);
 
-  console.log({ possibilities });
-
   res.status(200).json({ words: possibilities.slice(0, 100) || [] });
 }

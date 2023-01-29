@@ -22,7 +22,11 @@ const Possibilities = ({
   );
 
   if (!data) {
-    return <div>Chargement...</div>;
+    return (
+      <div className="h-96 my-4 flex justify-center items-center">
+        Chargement...
+      </div>
+    );
   }
 
   return (
