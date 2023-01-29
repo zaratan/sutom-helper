@@ -1,3 +1,4 @@
+import { sortBy } from 'lodash';
 import React from 'react';
 import useSWR from 'swr';
 
@@ -13,7 +14,7 @@ const Possibilities = ({
   word: Array<string | null>;
   forbiddenLetters: Array<{ letter: string }>;
   unknownPosLetters: Array<{ letter: string; count: number }>;
-  possibleWords: string[];
+  possibleWords: Array<{ word: string; score: number }>;
 }) => {
   const forbiddenRegex = `[^${forbiddenLetters
     .map((fl) => fl.letter)
@@ -26,13 +27,17 @@ const Possibilities = ({
     'i'
   );
 
-  const possibilities = possibleWords.filter(
-    (w) =>
-      regexpWord.test(w) &&
-      unknownPosLetters.every(
-        (upl) => w.split('').filter((l) => l === upl.letter).length >= upl.count
-      )
-  );
+  const possibilities = possibleWords
+    .filter(
+      (w) =>
+        regexpWord.test(w.word) &&
+        unknownPosLetters.every(
+          (upl) =>
+            w.word.split('').filter((l) => l === upl.letter).length >= upl.count
+        )
+    )
+    .map((w) => w.word);
+
   return (
     <ul className="max-h-96 my-4 flex flex-col flex-wrap overflow-y-scroll w-full gap-x-4">
       {possibilities.map((possibility, i) => (

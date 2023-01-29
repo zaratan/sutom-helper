@@ -16,7 +16,7 @@ const Main = ({
 }: {
   firstLetter: string;
   letterCount: number;
-  possibleWords: string[];
+  possibleWords: Array<{ word: string; score: number }>;
 }) => {
   const [word, setWord] = useState<Array<string | null>>([
     firstLetter,

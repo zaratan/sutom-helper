@@ -1,9 +1,11 @@
 import React from 'react';
 import Main from '@/app/[firstLetter]/[letterCount]/Main';
-import { letters, numbers } from '@/data/const';
-import * as fs from 'fs';
+import { Letter, letters, numbers } from '@/data/const';
+import { frequencyLetterFr } from '@/data/statisticsLetterFr';
 
 import words from '@/data/wordsFromSutomRepo.json';
+import { uniq } from 'lodash';
+import { sortBy } from 'lodash';
 
 export async function generateStaticParams() {
   return letters.flatMap((letter) =>
@@ -15,11 +17,23 @@ export async function generateStaticParams() {
 }
 
 const getValidWords = async (firstLetter: string, letterCount: number) => {
-  const validWords = words.filter(
-    (word) =>
-      word.length === letterCount &&
-      word[0].toLowerCase() === firstLetter.toLowerCase()
-  );
+  const validWords = sortBy(
+    words
+      .filter(
+        (word) =>
+          word.length === letterCount &&
+          word[0].toLowerCase() === firstLetter.toLowerCase()
+      )
+      .map((word) => ({
+        word,
+        score: (
+          uniq(
+            word.split('').map((l) => l.toLocaleLowerCase())
+          ) as Array<Letter>
+        ).reduce((acc, letter) => acc + frequencyLetterFr[letter], 0),
+      })),
+    'score'
+  ).reverse();
   return validWords;
 };
 
