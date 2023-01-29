@@ -12,9 +12,11 @@ import classMerge from '@/helpers/classMerge';
 const Main = ({
   firstLetter,
   letterCount,
+  possibleWords,
 }: {
   firstLetter: string;
   letterCount: number;
+  possibleWords: string[];
 }) => {
   const [word, setWord] = useState<Array<string | null>>([
     firstLetter,
@@ -67,11 +69,10 @@ const Main = ({
   return (
     <div className="w-full flex gap-6 justify-center flex-col items-center px-4 md:px-0 grow">
       <Possibilities
-        firstLetter={firstLetter}
-        letterCount={letterCount}
         word={word}
         forbiddenLetters={forbiddenLetters}
         unknownPosLetters={unknownPosLetters}
+        possibleWords={possibleWords}
       />
       <CurrentGuess
         word={word}

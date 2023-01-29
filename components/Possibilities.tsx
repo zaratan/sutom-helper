@@ -5,33 +5,16 @@ const fetcher = (entry: RequestInfo, init?: RequestInit) =>
   fetch(entry, init).then((res) => res.json());
 
 const Possibilities = ({
-  firstLetter,
-  letterCount,
   word,
   forbiddenLetters,
   unknownPosLetters,
+  possibleWords,
 }: {
-  firstLetter: string;
-  letterCount: number;
   word: Array<string | null>;
   forbiddenLetters: Array<{ letter: string }>;
   unknownPosLetters: Array<{ letter: string; count: number }>;
+  possibleWords: string[];
 }) => {
-  const { data } = useSWR<{ words: Array<string> }>(
-    `/api/${firstLetter}/${letterCount}/`,
-    fetcher
-  );
-
-  console.log({ data });
-
-  if (!data) {
-    return (
-      <div className="flex justify-center items-center w-full h-full max-h-96 my-4 flex-grow">
-        Loading...
-      </div>
-    );
-  }
-
   const forbiddenRegex = `[^${forbiddenLetters
     .map((fl) => fl.letter)
     .join('')}]`;
@@ -43,7 +26,7 @@ const Possibilities = ({
     'i'
   );
 
-  const possibilities = data.words.filter(
+  const possibilities = possibleWords.filter(
     (w) =>
       regexpWord.test(w) &&
       unknownPosLetters.every(
