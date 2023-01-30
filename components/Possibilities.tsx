@@ -9,7 +9,11 @@ const Possibilities = ({
   word,
   forbiddenLetters,
   unknownPosLetters,
+  firstLetter,
+  letterCount,
 }: {
+  letterCount: number;
+  firstLetter: string;
   word: Array<string | null>;
   forbiddenLetters: Array<{ letter: string }>;
   unknownPosLetters: Array<{ letter: string; count: number }>;
@@ -17,7 +21,9 @@ const Possibilities = ({
   const { data } = useSWR<WordsData>(
     `/api/words?w=${JSON.stringify(word)}&upl=${JSON.stringify(
       unknownPosLetters
-    )}&fbl=${JSON.stringify(forbiddenLetters)}`,
+    )}&fbl=${JSON.stringify(
+      forbiddenLetters
+    )}&fl=${firstLetter}&lc=${letterCount}`,
     fetcher
   );
 

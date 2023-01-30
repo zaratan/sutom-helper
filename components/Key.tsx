@@ -13,6 +13,19 @@ export const KeyLink = ({
   disabled?: boolean;
   link: string;
 }) => {
+  if (disabled) {
+    return (
+      <span
+        className={classMerge(
+          'border border-solid border-white rounded-lg flex-grow flex justify-center items-center font-mono',
+          doubleGrow ? 'flex-grow-1.5' : '',
+          'text-sutom-lightGray cursor-default'
+        )}
+      >
+        {letter}
+      </span>
+    );
+  }
   return (
     <Link
       className={classMerge(

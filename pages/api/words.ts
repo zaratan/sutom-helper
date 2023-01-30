@@ -1,9 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import words from '@/data/wordsFromSutomRepo.json';
 import { sortBy, uniq } from 'lodash';
 import { frequencyLetterFr } from '@/data/statisticsLetterFr';
 import { Letter } from '@/data/const';
+import fs from 'fs';
 
 export type WordsData = {
   words: Array<string>;
@@ -13,7 +13,10 @@ export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<WordsData>
 ) {
-  const { fbl, w, upl } = req.query;
+  const { fbl, w, upl, lc, fl } = req.query;
+  const words: Array<string> = JSON.parse(
+    fs.readFileSync(`./data/${fl}/words_${lc}.json`, 'utf8')
+  );
   const forbiddenLetters: Array<{ letter: string }> = JSON.parse(String(fbl));
   const word: Array<string | null> = JSON.parse(String(w));
   const unknownPosLetters: Array<{ letter: string; count: number }> =
