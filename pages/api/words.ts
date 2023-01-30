@@ -3,7 +3,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import { sortBy, uniq } from 'lodash';
 import { frequencyLetterFr } from '@/data/statisticsLetterFr';
 import { Letter } from '@/data/const';
-import fs from 'fs';
+import allWords from '@/data/wordsSplit';
 
 export type WordsData = {
   words: Array<string>;
@@ -14,9 +14,7 @@ export default function handler(
   res: NextApiResponse<WordsData>
 ) {
   const { fbl, w, upl, lc, fl } = req.query;
-  const words: Array<string> = JSON.parse(
-    fs.readFileSync(`./data/${fl}/words_${lc}.json`, 'utf8')
-  );
+  const words = allWords[String(fl) as 'A' | 'B'][lc];
   const forbiddenLetters: Array<{ letter: string }> = JSON.parse(String(fbl));
   const word: Array<string | null> = JSON.parse(String(w));
   const unknownPosLetters: Array<{ letter: string; count: number }> =
