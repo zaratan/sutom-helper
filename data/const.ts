@@ -27,6 +27,28 @@ export const letters = [
   'Z',
 ];
 
+export type ValidLetter =
+  | 'A'
+  | 'B'
+  | 'C'
+  | 'D'
+  | 'E'
+  | 'F'
+  | 'G'
+  | 'H'
+  | 'I'
+  | 'J'
+  | 'L'
+  | 'M'
+  | 'N'
+  | 'O'
+  | 'P'
+  | 'R'
+  | 'S'
+  | 'T'
+  | 'U'
+  | 'V';
+
 export type Letter =
   | 'a'
   | 'b'
