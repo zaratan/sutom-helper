@@ -1,11 +1,6 @@
 import React from 'react';
 import Main from '@/app/[firstLetter]/[letterCount]/Main';
-import { Letter, letters, numbers } from '@/data/const';
-import { frequencyLetterFr } from '@/data/statisticsLetterFr';
-
-import words from '@/data/wordsFromSutomRepo.json';
-import { uniq } from 'lodash';
-import { sortBy } from 'lodash';
+import { letters, numbers } from '@/data/const';
 
 export async function generateStaticParams() {
   return letters.flatMap((letter) =>
